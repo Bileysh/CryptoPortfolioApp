@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoApp.Models", "CryptoApp.Models\CryptoApp.Models.csproj", "{9F624F55-9BD2-4CB1-BD19-90DD090A5BEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoApp.Services", "CryptoApp.Services\CryptoApp.Services.csproj", "{299A0EDB-6F93-4925-95C7-637D7BDF7C48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoApp.ViewModels", "CryptoApp.ViewModels\CryptoApp.ViewModels.csproj", "{1F7AE0FE-908B-4246-9C92-90468BCB7096}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoApp.WPF", "CryptoApp.WPF\CryptoApp.WPF.csproj", "{48F81BCA-12EB-438C-876A-BFBCF5298D59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F624F55-9BD2-4CB1-BD19-90DD090A5BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F624F55-9BD2-4CB1-BD19-90DD090A5BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F624F55-9BD2-4CB1-BD19-90DD090A5BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F624F55-9BD2-4CB1-BD19-90DD090A5BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{299A0EDB-6F93-4925-95C7-637D7BDF7C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{299A0EDB-6F93-4925-95C7-637D7BDF7C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{299A0EDB-6F93-4925-95C7-637D7BDF7C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{299A0EDB-6F93-4925-95C7-637D7BDF7C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F7AE0FE-908B-4246-9C92-90468BCB7096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F7AE0FE-908B-4246-9C92-90468BCB7096}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F7AE0FE-908B-4246-9C92-90468BCB7096}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F7AE0FE-908B-4246-9C92-90468BCB7096}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48F81BCA-12EB-438C-876A-BFBCF5298D59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48F81BCA-12EB-438C-876A-BFBCF5298D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48F81BCA-12EB-438C-876A-BFBCF5298D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48F81BCA-12EB-438C-876A-BFBCF5298D59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
