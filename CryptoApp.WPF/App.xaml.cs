@@ -8,23 +8,26 @@ namespace CryptoApp.WPF
 {
     public partial class App : Application
     {
-        public static IServiceProvider ServiceProvider { get; private set; }
+        public static IServiceProvider ServiceProvider { get; private set; } = null!;
 
         protected override void OnStartup(StartupEventArgs e)
         {
-
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-
-            ServiceProvider = serviceCollection.BuildServiceProvider();
             base.OnStartup(e);
 
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+            ServiceProvider = services.BuildServiceProvider();
+
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
         }
 
         private void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<MainWindow>();
+            
             services.AddSingleton<MainViewModel>();
-            services.AddTransient<HomeViewModel>();
+            services.AddSingleton<HomeViewModel>();
         }
     }
 }
