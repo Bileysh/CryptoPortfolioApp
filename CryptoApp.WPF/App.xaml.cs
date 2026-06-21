@@ -2,6 +2,7 @@
 using System.Windows;
 using CryptoApp.Services.Implementations;
 using CryptoApp.Services.Interfaces;
+using CryptoApp.Services.Models;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoApp.ViewModels;
 using CryptoApp.WPF.Services;
@@ -26,15 +27,21 @@ namespace CryptoApp.WPF
             
             services.AddSingleton<IConfiguration>(configuration);
             
-            ConfigureServices(services);
+            ConfigureServices(services, configuration);
             ServiceProvider = services.BuildServiceProvider();
 
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }
 
-        private void ConfigureServices(IServiceCollection services)
+        private void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+            
+            services.Configure<CryptoApiOptions>(options =>
+            {
+                options.ApiKey = configuration["CoinGeckoApiKey"] ?? string.Empty;
+            });
+            
             services.AddSingleton<MainWindow>();
             
             services.AddSingleton<MainViewModel>();
