@@ -5,11 +5,52 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <TextBlock Text="Welcome to the CryptoApp!" 
-                   HorizontalAlignment="Center" 
-                   VerticalAlignment="Center" 
-                   FontSize="24" 
-                   FontWeight="Bold" />
+    
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+    
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,15">
+            <TextBox Width="250" Height="30" Margin="0,0,10,0" 
+                     Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                     VerticalContentAlignment="Center"
+                     Padding="5,0"
+                     ToolTip="Введіть назву або код (наприклад, BTC)"/>
+            
+            <Button Content="Пошук" Command="{Binding SearchCommand}" Width="100" Height="30" Margin="0,0,10,0"/>
+            <Button Content="Оновити" Command="{Binding LoadDataCommand}" Width="100" Height="30"/>
+            
+            <TextBlock Text="Завантаження з CoinGecko..." 
+                       VerticalAlignment="Center" 
+                       Margin="15,0,0,0"
+                       Foreground="Gray"
+                       Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        </StackPanel>
+
+        <DataGrid Grid.Row="1" 
+                  ItemsSource="{Binding Currencies}" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True"
+                  GridLinesVisibility="Horizontal"
+                  HeadersVisibility="Column"
+                  SelectionMode="Single"
+                  RowHeight="35"
+                  FontSize="14">
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Символ" Binding="{Binding Symbol}" FontWeight="Bold" Width="80"/>
+                <DataGridTextColumn Header="Назва" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Ціна (USD)" Binding="{Binding PriceUsd, StringFormat=\{0:C2\}}" Width="120"/>
+                <DataGridTextColumn Header="Зміна 24h" Binding="{Binding ChangePercent24Hr, StringFormat=\{0:F2\}%}" Width="100"/>
+                <DataGridTextColumn Header="Капіталізація" Binding="{Binding MarketCap, StringFormat=\{0:C0\}}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
+    
 </UserControl>
