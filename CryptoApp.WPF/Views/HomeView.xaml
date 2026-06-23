@@ -26,6 +26,8 @@
             <Button Content="Пошук" Command="{Binding SearchCommand}" Width="100" Height="30" Margin="0,0,10,0"/>
             <Button Content="Оновити" Command="{Binding LoadDataCommand}" Width="100" Height="30"/>
             
+            <TextBlock Text="{Binding LastUpdatedText}" VerticalAlignment="Center" Margin="15,0,0,0" FontWeight="SemiBold" Foreground="#444444"/>
+            
             <TextBlock Text="Завантаження з CoinGecko..." 
                        VerticalAlignment="Center" 
                        Margin="15,0,0,0"
@@ -35,7 +37,7 @@
 
         <DataGrid Grid.Row="1" 
                   ItemsSource="{Binding Currencies}" 
-                  AutoGenerateColumns="False" 
+                  SelectedItem="{Binding SelectedCurrency}" AutoGenerateColumns="False"
                   IsReadOnly="True"
                   GridLinesVisibility="Horizontal"
                   HeadersVisibility="Column"

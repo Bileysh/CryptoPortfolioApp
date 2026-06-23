@@ -1,19 +1,23 @@
 ﻿using CryptoApp.ViewModels.Base;
+using CryptoApp.ViewModels.Services;
 
 namespace CryptoApp.ViewModels;
 
 public class MainViewModel: ViewModelBase
 {
-    private ViewModelBase _currentViewModel;
+    private readonly INavigationService _navigationService;
 
-    public ViewModelBase CurrentViewModel
+    public ViewModelBase CurrentViewModel => _navigationService.CurrentView;
+    
+    public MainViewModel(INavigationService navigationService, HomeViewModel homeViewModel)
     {
-        get => _currentViewModel;
-        set => SetProperty(ref _currentViewModel, value);
+        _navigationService = navigationService;
+        _navigationService.StateChanged += OnStateChanged;
+        _navigationService.NavigateTo(homeViewModel);
     }
     
-    public MainViewModel(HomeViewModel homeViewModel)
+    private void OnStateChanged()
     {
-        _currentViewModel = homeViewModel;
+        OnPropertyChanged(nameof(CurrentViewModel));
     }
 }

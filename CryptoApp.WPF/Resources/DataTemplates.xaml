@@ -7,4 +7,8 @@
         <views:HomeView />
     </DataTemplate>
     
+    <DataTemplate DataType="{x:Type vm:CoinDetailViewModel}">
+        <views:CoinDetailView />
+    </DataTemplate>
+    
 </ResourceDictionary>

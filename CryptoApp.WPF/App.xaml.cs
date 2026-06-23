@@ -5,6 +5,7 @@ using CryptoApp.Services.Interfaces;
 using CryptoApp.Services.Models;
 using Microsoft.Extensions.DependencyInjection;
 using CryptoApp.ViewModels;
+using CryptoApp.ViewModels.Services;
 using CryptoApp.WPF.Services;
 using CryptoApp.WPF.Views;
 using Microsoft.Extensions.Configuration;
@@ -50,6 +51,7 @@ namespace CryptoApp.WPF
             services.AddHttpClient<ICryptoApiService, CryptoApiService>();
             
             services.AddSingleton<IDialogService, WpfDialogService>();
+            services.AddSingleton<INavigationService, NavigationService>();
         }
     }
 }

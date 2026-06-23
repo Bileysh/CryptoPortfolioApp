@@ -151,11 +151,12 @@ public class CryptoApiService: ICryptoApiService
                 .Take(10)
                 .Select(t => new MarketInfo
                 {
-                    ExchangeName = t.Market.Name,
-                    Pair = $"{t.Base}/{t.Target}",
-                    PriceUsd = t.Last,
-                    TradeUrl = t.TradeUrl
-                });
+                    ExchangeName = t.Market?.Name ?? "Невідома біржа",
+                    Pair = $"{t.Base ?? "N/A"}/{t.Target ?? "N/A"}",
+                    PriceUsd = t.Last ?? 0m,
+                    TradeUrl = t.TradeUrl ?? string.Empty
+                })
+                .ToList();
 
             return tickers;
         }
