@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using CryptoApp.Models.Entities;
 using CryptoApp.Services.Implementations;
 using CryptoApp.Services.Interfaces;
 using CryptoApp.Services.Models;
@@ -9,6 +10,8 @@ using CryptoApp.ViewModels.Services;
 using CryptoApp.WPF.Services;
 using CryptoApp.WPF.Views;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
 
 namespace CryptoApp.WPF
 {
@@ -46,12 +49,26 @@ namespace CryptoApp.WPF
             services.AddSingleton<MainWindow>();
             
             services.AddSingleton<MainViewModel>();
-            services.AddSingleton<HomeViewModel>();
+            services.AddTransient<HomeViewModel>();
+            services.AddTransient<CoinDetailViewModel>();
             
             services.AddHttpClient<ICryptoApiService, CryptoApiService>();
             
             services.AddSingleton<IDialogService, WpfDialogService>();
             services.AddSingleton<INavigationService, NavigationService>();
+            
+            services.AddLogging(builder =>
+            {
+                builder.AddDebug();
+            });
+            
+            services.AddSingleton<Func<CryptoCurrency, CoinDetailViewModel>>(sp => 
+                coin => 
+                {
+                    var vm = sp.GetRequiredService<CoinDetailViewModel>();
+                    vm.Initialize(coin);
+                    return vm;
+                });
         }
     }
 }

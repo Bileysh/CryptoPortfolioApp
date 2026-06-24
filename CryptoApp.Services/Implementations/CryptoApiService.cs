@@ -4,6 +4,7 @@ using CryptoApp.Services.Interfaces;
 using CryptoApp.Services.Models;
 using CryptoApp.Services.Models.Dtos;
 using CryptoApp.Services.Models.Response;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace CryptoApp.Services.Implementations;
@@ -12,9 +13,11 @@ public class CryptoApiService: ICryptoApiService
 {
     private readonly HttpClient _httpClient;
     private readonly CryptoApiOptions _options;    
-    public CryptoApiService(HttpClient httpClient, IOptions<CryptoApiOptions> options)
+    private readonly ILogger<CryptoApiService> _logger;
+    public CryptoApiService(HttpClient httpClient, IOptions<CryptoApiOptions> options, ILogger<CryptoApiService> logger)
     {
         _httpClient = httpClient;
+        _logger = logger;
         _options = options.Value;
         _httpClient.DefaultRequestHeaders.Add("User-Agent", "CryptoPortfolioApp/1.0");
         
@@ -44,12 +47,14 @@ public class CryptoApiService: ICryptoApiService
                 PriceUsd = dto.CurrentPrice ?? 0m,
                 ChangePercent24Hr = dto.PriceChangePercentage24H ?? 0m,
                 MarketCap = dto.MarketCap ?? 0m,
-                Volume24Hr = dto.TotalVolume ?? 0m
+                Volume24Hr = dto.TotalVolume ?? 0m,
+                Ath = dto.Ath ?? 0m,
+                CirculatingSupply = dto.CirculatingSupply ?? 0m
             });
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error fetching top currencies: {ex.Message}");
+            _logger.LogError(ex,"Error fetching top currencies: {ExMessage}", ex.Message);
             throw;
         }
     }
@@ -88,12 +93,14 @@ public class CryptoApiService: ICryptoApiService
                 PriceUsd = dto.CurrentPrice ?? 0m,
                 ChangePercent24Hr = dto.PriceChangePercentage24H ?? 0m,
                 MarketCap = dto.MarketCap ?? 0m,
-                Volume24Hr = dto.TotalVolume ?? 0m
+                Volume24Hr = dto.TotalVolume ?? 0m,
+                Ath = dto.Ath ?? 0m,
+                CirculatingSupply = dto.CirculatingSupply ?? 0m
             });
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error searching for currencies with query '{query}': {e.Message}");
+            _logger.LogError(e,"Error searching for currencies with query '{Query}': {EMessage}", query, e.Message);
             throw;
         }
     }
@@ -121,12 +128,14 @@ public class CryptoApiService: ICryptoApiService
                 PriceUsd = dto.CurrentPrice ?? 0m,
                 ChangePercent24Hr = dto.PriceChangePercentage24H ?? 0m,
                 MarketCap = dto.MarketCap ?? 0m,
-                Volume24Hr = dto.TotalVolume ?? 0m
+                Volume24Hr = dto.TotalVolume ?? 0m,
+                Ath = dto.Ath ?? 0m,
+                CirculatingSupply = dto.CirculatingSupply ?? 0m
             };
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error fetching details for currency {id}: {e.Message}");
+            _logger.LogError(e,"Error fetching details for currency {Id}: {EMessage}", id, e.Message);
             throw;
         }
     }
@@ -162,7 +171,7 @@ public class CryptoApiService: ICryptoApiService
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error fetching markets for currency {id}: {ex.Message}");
+            _logger.LogError(ex,"Error fetching markets for currency {Id}: {ExMessage}", id, ex.Message);
             throw;
         }
     }

@@ -24,4 +24,10 @@ public class CoinGeckoMarketDto
 
     [JsonPropertyName("total_volume")]
     public decimal? TotalVolume { get; set; }
+    
+    [JsonPropertyName("ath")]
+    public decimal? Ath { get; set; }
+
+    [JsonPropertyName("circulating_supply")]
+    public decimal? CirculatingSupply { get; set; }
 }

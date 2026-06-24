@@ -7,6 +7,8 @@ public class NavigationService: INavigationService
 {
     private ViewModelBase _currentView = null!;
     
+    private readonly Stack<ViewModelBase> _history = new();
+
     public ViewModelBase CurrentView
     {
         get => _currentView;
@@ -21,6 +23,16 @@ public class NavigationService: INavigationService
     
     public void NavigateTo(ViewModelBase viewModel)
     {
+        _history.Push(_currentView);
+
         CurrentView = viewModel;
+    }
+    
+    public void GoBack()
+    {
+        if (_history.Count > 0)
+        {
+            CurrentView = _history.Pop();
+        }
     }
 }

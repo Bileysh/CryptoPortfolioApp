@@ -9,4 +9,6 @@ public class CryptoCurrency
     public decimal ChangePercent24Hr { get; set; }
     public decimal MarketCap { get; set; }
     public decimal Volume24Hr { get; set; }
+    public decimal Ath { get; set; }
+    public decimal CirculatingSupply { get; set; }
 }

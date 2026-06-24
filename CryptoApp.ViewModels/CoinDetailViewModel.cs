@@ -13,30 +13,33 @@ public partial class CoinDetailViewModel: ViewModelBase
     private readonly ICryptoApiService _apiService;
     private readonly IDialogService _dialogService;
     private readonly INavigationService _navigationService;
-    private readonly ViewModelBase _homeViewModel;
+
     
     [ObservableProperty]
-    private CryptoCurrency _coin;
+    private CryptoCurrency _coin = null!;
     [ObservableProperty]
     private ObservableCollection<MarketInfo> _markets = new();
+    
     [ObservableProperty]
     private bool _isLoading;
     
     public CoinDetailViewModel(
-        CryptoCurrency coin, 
         ICryptoApiService apiService, 
         IDialogService dialogService, 
-        INavigationService navigationService,
-        ViewModelBase homeViewModel)
+        INavigationService navigationService)
     {
-        Coin = coin; 
         _apiService = apiService;
         _dialogService = dialogService;
         _navigationService = navigationService;
-        _homeViewModel = homeViewModel;
-
-        LoadMarketsCommand.ExecuteAsync(null);
     }
+    
+    public void Initialize(CryptoCurrency coin)
+    {
+        Coin = coin;
+        LoadMarketsCommand.ExecuteAsync(null);
+        LoadCoinDetailsCommand.ExecuteAsync(null);
+    }
+    
     [ObservableProperty]
     private string _lastUpdatedText = "Ще не оновлено";
     
@@ -63,11 +66,28 @@ public partial class CoinDetailViewModel: ViewModelBase
             IsLoading = false;
         }
     }
-
+    
+    [RelayCommand]
+    private async Task LoadCoinDetailsAsync()
+    {
+        try
+        {
+            var fullDetails = await _apiService.GetCurrencyDetailsAsync(Coin.Id);
+            if (fullDetails != null)
+            {
+                Coin = fullDetails; 
+            }
+        }
+        catch (Exception ex)
+        {
+            _dialogService.ShowError($"Не вдалося оновити деталі монети: {ex.Message}", "Помилка");
+        }
+    }
+    
     [RelayCommand]
     private void GoBack()
     {
-        _navigationService.NavigateTo(_homeViewModel);
+        _navigationService.GoBack();
     }
     
     [RelayCommand]

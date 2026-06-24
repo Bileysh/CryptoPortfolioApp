@@ -15,16 +15,18 @@ public partial class HomeViewModel : ViewModelBase, IDisposable
     private readonly ICryptoApiService _apiService;
     private readonly IDialogService _dialogService;
     private readonly INavigationService _navigationService;
+    private readonly Func<CryptoCurrency, CoinDetailViewModel> _coinDetailFactory;
     
     private PeriodicTimer? _timer;
     private CancellationTokenSource? _timerCts;
     
-    public HomeViewModel(ICryptoApiService apiService, IDialogService dialogService, INavigationService navigationService)
+    public HomeViewModel(ICryptoApiService apiService, IDialogService dialogService, INavigationService navigationService, Func<CryptoCurrency, CoinDetailViewModel> coinDetailFactory)
     {
         _apiService = apiService;
         _dialogService = dialogService;
         _navigationService = navigationService;
-        
+        _coinDetailFactory = coinDetailFactory;
+
         LoadDataCommand.ExecuteAsync(null);
         
         StartAutoUpdate();
@@ -137,12 +139,7 @@ public partial class HomeViewModel : ViewModelBase, IDisposable
     {
         if (value != null)
         {
-            var detailViewModel = new CoinDetailViewModel(
-                value, 
-                _apiService, 
-                _dialogService, 
-                _navigationService, 
-                this); 
+            var detailViewModel = _coinDetailFactory(value);
 
             _navigationService.NavigateTo(detailViewModel);
 
