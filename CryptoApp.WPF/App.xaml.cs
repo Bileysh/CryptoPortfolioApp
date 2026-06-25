@@ -56,6 +56,7 @@ namespace CryptoApp.WPF
             
             services.AddSingleton<IDialogService, WpfDialogService>();
             services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<IThemeService, ThemeService>();
             
             services.AddLogging(builder =>
             {

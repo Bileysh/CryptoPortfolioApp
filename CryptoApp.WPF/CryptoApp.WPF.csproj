@@ -5,9 +5,14 @@
         <TargetFramework>net8.0-windows</TargetFramework>        <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>Assets\favicon.ico</ApplicationIcon>
       <UserSecretsId>29cb18e1-7eaf-4eb7-85b6-74a55f2e3342</UserSecretsId>
   </PropertyGroup>
 
+    <ItemGroup>
+        <Resource Include="Assets\favicon.ico" />
+    </ItemGroup>
+    
     <ItemGroup>
       <ProjectReference Include="..\CryptoApp.Models\CryptoApp.Models.csproj" />
       <ProjectReference Include="..\CryptoApp.Services\CryptoApp.Services.csproj" />

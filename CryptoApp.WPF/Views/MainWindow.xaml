@@ -4,8 +4,56 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="CryptoPortfolio" Height="450" Width="800">
+        Title="CryptoPortfolio" Height="600" Width="1000"
+        Background="{DynamicResource AppBackground}"
+        WindowStartupLocation="CenterScreen"
+        Icon="/Assets/favicon.ico">
+    
     <Grid>
-        <ContentControl Content="{Binding CurrentViewModel}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/> <RowDefinition Height="*"/>  </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{DynamicResource CardBackground}" 
+                BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,0,1">
+            <Grid>
+                <TextBlock Text="Crypto Tracker" 
+                           VerticalAlignment="Center" Margin="20,0,0,0" 
+                           FontSize="22" FontWeight="Bold" 
+                           Foreground="{DynamicResource TextPrimary}"/>
+                
+                <Button Command="{Binding ToggleThemeCommand}" 
+                        HorizontalAlignment="Right" Margin="0,0,20,0"
+                        Cursor="Hand"
+                        Style="{x:Null}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="Transparent">
+                                <TextBlock x:Name="IconText" 
+                                           Text="☽" 
+                                           FontSize="26" 
+                                           FontFamily="Segoe UI Emoji"
+                                           Foreground="{DynamicResource TextPrimary}" 
+                                           HorizontalAlignment="Center" 
+                                           VerticalAlignment="Center"/>
+                            </Border>
+                            
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsDarkTheme}" Value="True">
+                                    <Setter TargetName="IconText" Property="Text" Value="☼" />
+                                </DataTrigger>
+                                
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.7" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                
+            </Grid>
+        </Border>
+
+        <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}" />
     </Grid>
+    
 </Window>

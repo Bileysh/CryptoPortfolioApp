@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="600" d:DesignWidth="800"
-             Background="White">
+             Background="{DynamicResource AppBackground}">
              
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
@@ -25,51 +25,51 @@
                 HorizontalAlignment="Left" Margin="0,0,0,20"/>
         
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,20">
-            <TextBlock Text="{Binding Coin.Name}" FontSize="28" FontWeight="Bold" Margin="0,0,10,0"/>
-            <TextBlock Text="{Binding Coin.Symbol}" FontSize="28" Foreground="Gray"/>
+            <TextBlock Text="{Binding Coin.Name}" FontSize="28" FontWeight="Bold" Margin="0,0,10,0" Foreground="{DynamicResource TextPrimary}"/>
+            <TextBlock Text="{Binding Coin.Symbol}" FontSize="28" Foreground="{DynamicResource TextSecondary}"/>
             
             <Button Content="Оновити ринки" Command="{Binding LoadMarketsCommand}" 
                     Width="120" Height="30" Margin="20,0,0,0" Padding="5,0"/>
             
             <TextBlock Text="{Binding LastUpdatedText}" 
                        VerticalAlignment="Center" Margin="15,0,0,0" 
-                       FontWeight="SemiBold" Foreground="#444444"/>
+                       FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}" />
             
             <TextBlock Text="Оновлення даних..." 
-                       VerticalAlignment="Center" Margin="20,0,0,0" Foreground="Gray"
+                       VerticalAlignment="Center" Margin="20,0,0,0" Foreground="{DynamicResource TextSecondary}"
                        Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </StackPanel>
 
         <UniformGrid Grid.Row="2" Rows="2" Columns="3" Margin="0,0,0,20">
             
             <StackPanel Margin="0,0,0,15">
-                <TextBlock Text="Поточна ціна" Foreground="Gray" FontSize="12"/>
-                <TextBlock Text="{Binding Coin.PriceUsd, StringFormat=\{0:C4\}}" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Поточна ціна" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                <TextBlock Text="{Binding Coin.PriceUsd, StringFormat=\{0:C4\}}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
             </StackPanel>
             
             <StackPanel Margin="0,0,0,15">
-                <TextBlock Text="Зміна за 24h" Foreground="Gray" FontSize="12"/>
-                <TextBlock Text="{Binding Coin.ChangePercent24Hr, StringFormat=\{0:F2\}%}" FontSize="18" FontWeight="Bold" />
+                <TextBlock Text="Зміна за 24h" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                <TextBlock Text="{Binding Coin.ChangePercent24Hr, StringFormat=\{0:F2\}%}" FontSize="18" FontWeight="Bold" Foreground="{Binding Coin.ChangePercent24Hr, Converter={StaticResource PercentageColorConverter}}" />
             </StackPanel>
             
             <StackPanel Margin="0,0,0,15">
-                <TextBlock Text="Капіталізація" Foreground="Gray" FontSize="12"/>
-                <TextBlock Text="{Binding Coin.MarketCap, StringFormat=\{0:C0\}}" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Капіталізація" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                <TextBlock Text="{Binding Coin.MarketCap, StringFormat=\{0:C0\}}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
             </StackPanel>
             
             <StackPanel>
-                <TextBlock Text="Обсяг торгів (24h)" Foreground="Gray" FontSize="12"/>
-                <TextBlock Text="{Binding Coin.Volume24Hr, StringFormat=\{0:C0\}}" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Обсяг торгів (24h)" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                <TextBlock Text="{Binding Coin.Volume24Hr, StringFormat=\{0:C0\}}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
             </StackPanel>
 
             <StackPanel>
-                <TextBlock Text="Історичний максимум (ATH)" Foreground="Gray" FontSize="12"/>
-                <TextBlock Text="{Binding Coin.Ath, StringFormat=\{0:C4\}}" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Історичний максимум (ATH)" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                <TextBlock Text="{Binding Coin.Ath, StringFormat=\{0:C4\}}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
             </StackPanel>
 
             <StackPanel>
-                <TextBlock Text="Монет в обігу" Foreground="Gray" FontSize="12"/>
-                <TextBlock Text="{Binding Coin.CirculatingSupply, StringFormat=\{0:N0\}}" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="Монет в обігу" Foreground="{DynamicResource TextSecondary}" FontSize="12"/>
+                <TextBlock Text="{Binding Coin.CirculatingSupply, StringFormat=\{0:N0\}}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource TextPrimary}"/>
             </StackPanel>
 
         </UniformGrid>

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
+             Background="{DynamicResource AppBackground}"
              d:DesignHeight="300" d:DesignWidth="300">
     
     <UserControl.Resources>
@@ -26,12 +27,12 @@
             <Button Content="Пошук" Command="{Binding SearchCommand}" Width="100" Height="30" Margin="0,0,10,0"/>
             <Button Content="Оновити" Command="{Binding LoadDataCommand}" Width="100" Height="30"/>
             
-            <TextBlock Text="{Binding LastUpdatedText}" VerticalAlignment="Center" Margin="15,0,0,0" FontWeight="SemiBold" Foreground="#444444"/>
+            <TextBlock Text="{Binding LastUpdatedText}" VerticalAlignment="Center" Margin="15,0,0,0" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimary}"/>
             
             <TextBlock Text="Завантаження з CoinGecko..." 
                        VerticalAlignment="Center" 
                        Margin="15,0,0,0"
-                       Foreground="Gray"
+                       Foreground="{DynamicResource TextSecondary}"
                        Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
         </StackPanel>
 
@@ -49,7 +50,17 @@
                 <DataGridTextColumn Header="Символ" Binding="{Binding Symbol}" FontWeight="Bold" Width="80"/>
                 <DataGridTextColumn Header="Назва" Binding="{Binding Name}" Width="*"/>
                 <DataGridTextColumn Header="Ціна (USD)" Binding="{Binding PriceUsd, StringFormat=\{0:C2\}}" Width="120"/>
-                <DataGridTextColumn Header="Зміна 24h" Binding="{Binding ChangePercent24Hr, StringFormat=\{0:F2\}%}" Width="100"/>
+                <DataGridTemplateColumn Header="Зміна 24h" Width="100" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding ChangePercent24Hr, StringFormat=\{0:F2\}%}" 
+                                       FontWeight="Bold"
+                                       Foreground="{Binding ChangePercent24Hr, Converter={StaticResource PercentageColorConverter}}"
+                                       VerticalAlignment="Center"
+                                       Padding="10,0" d:DataContext="{d:DesignInstance }" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>                
                 <DataGridTextColumn Header="Капіталізація" Binding="{Binding MarketCap, StringFormat=\{0:C0\}}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>

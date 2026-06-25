@@ -143,7 +143,10 @@ public partial class HomeViewModel : ViewModelBase, IDisposable
 
             _navigationService.NavigateTo(detailViewModel);
 
-            SelectedCurrency = null;
+            Task.Delay(50).ContinueWith(_ =>
+            {
+                SelectedCurrency = null;
+            }, TaskScheduler.FromCurrentSynchronizationContext());
         }
     }
 }
