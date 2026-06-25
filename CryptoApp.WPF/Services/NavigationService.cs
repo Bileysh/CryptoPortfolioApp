@@ -24,7 +24,6 @@ public class NavigationService: INavigationService
     public void NavigateTo(ViewModelBase viewModel)
     {
         _history.Push(_currentView);
-
         CurrentView = viewModel;
     }
     

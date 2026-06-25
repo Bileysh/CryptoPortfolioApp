@@ -6,4 +6,6 @@
     <SolidColorBrush x:Key="TextSecondary" Color="#6B7280"/>
     <SolidColorBrush x:Key="BorderColor" Color="#E5E7EB"/>
     <SolidColorBrush x:Key="DataGridHeader" Color="#F3F4F6"/>
+    <SolidColorBrush x:Key="SelectedRowBackground" Color="#E6F2FA"/>
+    <SolidColorBrush x:Key="SelectedRowForeground" Color="#111827"/>
 </ResourceDictionary>
